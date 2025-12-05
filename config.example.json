@@ -1,0 +1,27 @@
+{
+  "watch_directory": "./transcripts",
+  "sentiment_threshold": 0.3,
+  "task_backend": "Markdown",
+  "notification_endpoint": "",
+  "jira": {
+    "url": "https://your-company.atlassian.net",
+    "api_token": "your_jira_api_token_here",
+    "project_key": "TEAM"
+  },
+  "trello": {
+    "api_key": "your_trello_api_key_here",
+    "api_token": "your_trello_api_token_here",
+    "board_id": "your_board_id",
+    "list_id": "your_list_id"
+  },
+  "slack": {
+    "bot_token": "xoxb-your-slack-bot-token",
+    "channel_id": "C1234567890"
+  },
+  "teams": {
+    "webhook_url": "https://your-company.webhook.office.com/webhookb2/..."
+  },
+  "markdown_output_file": "./tasks.md",
+  "summary_output_dir": "./summaries",
+  "log_level": "INFO"
+}

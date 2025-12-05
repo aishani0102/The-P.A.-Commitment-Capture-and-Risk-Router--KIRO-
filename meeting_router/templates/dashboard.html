@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>Total Meetings</h3>
+        <div class="value">{{ stats.total_meetings }}</div>
+    </div>
+    
+    <div class="stat-card">
+        <h3>Action Items</h3>
+        <div class="value">{{ stats.total_action_items }}</div>
+    </div>
+    
+    <div class="stat-card">
+        <h3>Tasks Created</h3>
+        <div class="value">{{ stats.total_tasks }}</div>
+    </div>
+    
+    <div class="stat-card">
+        <h3>Risk Points</h3>
+        <div class="value">{{ stats.total_risks }}</div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Recent Meeting Summaries</h2>
+    
+    {% if summaries %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date & Time</th>
+                <th>Action Items</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for summary in summaries %}
+            <tr>
+                <td>
+                    <div style="font-weight: 600; color: #2c3e50;">Meeting Summary</div>
+                    <div style="color: #7f8c8d; font-size: 0.9rem;">{{ summary.timestamp }}</div>
+                </td>
+                <td>
+                    <span class="badge badge-primary">{{ summary.action_items_count }} items</span>
+                </td>
+                <td>
+                    {% if summary.has_risks %}
+                    <span class="badge badge-danger">⚠️ Has risks</span>
+                    {% else %}
+                    <span class="badge" style="background: #e8f5e9; color: #2e7d32;">✓ Clear</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/summary/{{ summary.filename }}" class="btn" style="padding: 0.4rem 1rem; font-size: 0.9rem;">View Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <h3>No summaries yet</h3>
+        <p>Process a meeting transcript to see summaries here</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

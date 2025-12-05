@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Summary - {{ filename }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .section-card {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        margin-bottom: 1.5rem;
+    }
+    .section-card h2 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 0.5rem;
+    }
+    .decision-list {
+        list-style: none;
+        padding: 0;
+    }
+    .decision-item {
+        padding: 0.75rem;
+        background: #f8f9fa;
+        border-left: 4px solid #667eea;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+    }
+    .risk-card {
+        background: #fff3e0;
+        border-left: 4px solid #f57c00;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+    }
+    .risk-score {
+        display: inline-block;
+        background: #f57c00;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    .action-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    .action-table th {
+        background: #f8f9fa;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: #2c3e50;
+        border-bottom: 2px solid #ecf0f1;
+    }
+    .action-table td {
+        padding: 1rem;
+        border-bottom: 1px solid #ecf0f1;
+        vertical-align: top;
+    }
+    .action-table tr:hover {
+        background: #f8f9fa;
+    }
+    .owner-badge {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+    .task-link {
+        color: #667eea;
+        text-decoration: none;
+        font-family: monospace;
+        font-size: 0.9rem;
+    }
+    .task-link:hover {
+        text-decoration: underline;
+    }
+    .context-text {
+        color: #7f8c8d;
+        font-style: italic;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 1rem;">
+    <a href="/" class="btn btn-secondary">← Back to Dashboard</a>
+</div>
+
+<div class="section-card">
+    <h2>📋 Meeting Summary</h2>
+    <p style="color: #7f8c8d; margin-bottom: 0;">{{ filename }}</p>
+</div>
+
+{% if key_decisions %}
+<div class="section-card">
+    <h2>🎯 Key Decisions</h2>
+    <ul class="decision-list">
+        {% for decision in key_decisions %}
+        <li class="decision-item">{{ decision }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% if action_items %}
+<div class="section-card">
+    <h2>✅ Action Items</h2>
+    <table class="action-table">
+        <thead>
+            <tr>
+                <th style="width: 15%;">Owner</th>
+                <th style="width: 40%;">Task</th>
+                <th style="width: 15%;">Task ID</th>
+                <th style="width: 30%;">Context</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in action_items %}
+            <tr>
+                <td>
+                    <span class="owner-badge">{{ item.owner }}</span>
+                </td>
+                <td>
+                    <strong>{{ item.task }}</strong>
+                </td>
+                <td>
+                    {% if item.task_link %}
+                    <a href="{{ item.task_link }}" class="task-link">{{ item.task_id }}</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="context-text">"{{ item.context }}"</div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if risk_points %}
+<div class="section-card">
+    <h2>🚨 Risk Points for Review</h2>
+    {% for risk in risk_points %}
+    <div class="risk-card">
+        <div style="margin-bottom: 0.5rem;">
+            <span class="risk-score">Score: {{ risk.score }}</span>
+        </div>
+        <div style="font-weight: 600; margin-bottom: 0.5rem;">"{{ risk.text }}"</div>
+        <div style="color: #7f8c8d; font-size: 0.9rem;">Context: {{ risk.context }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

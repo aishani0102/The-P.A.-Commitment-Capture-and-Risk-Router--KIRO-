@@ -1,0 +1,22 @@
+MEETING: Sprint Retrospective - 2025-12-03
+
+Attendees: Jane, Alex, Chris, Ben
+
+Jane: Thanks everyone for joining the retro. Overall, the sprint was successful, but let's dive into deployment latency. I'm seeing performance dips again, which is frustrating.
+
+Alex: I agree, the latency spikes are becoming a major concern. We decided last week to investigate the database connection pooling, but that didn't happen.
+
+Chris: That's right. I was pulled onto the P0 security bug, so I never got a chance to look at it. I will set up a dedicated investigation task for the pooling issue right now. I estimate it will take a full day.
+
+Jane: Okay, good. We decided the priority now shifts back to performance. We need a clear owner for the long-term solution. Alex, you should analyze the query logs to pinpoint the bottleneck.
+
+Alex: I can own the analysis, but I'm worried that dedicating a full day to Chris's task and my analysis will jeopardize our commitments for the next sprint. I truly believe we should delay the API cleanup instead.
+
+Ben: I understand your concern, Alex, but the client explicitly requested that API cleanup by Friday. I will talk to the client to negotiate a one-week delay for the cleanup feature. I feel strongly that we need to fix this latency immediately.
+
+Chris: Ben, that negotiation is risky. Are you sure that's the best route?
+
+Ben: It is. I will ping the team in Slack with the official go/no-go on the client delay by end of the day.
+
+Jane: Final point. We still need a better way to report feature usage. We need to update the metrics dashboard to include the new user engagement data. I will create a JIRA story for that dashboard update by tomorrow. Let’s keep the sentiment around the deployment process positive going forward.
+
